@@ -2,7 +2,7 @@
 
 The files in this repository were used to configure the network depicted below.
 
-![TODO: Update the path with the name of your diagram](Images/net_diagram.png)
+![Net_Diagram](https://github.com/jb-williams/ansible/blob/Images/net_diagram.png)
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the yamal files may be used to install only certain pieces of it, such as Filebeat.
 
@@ -69,12 +69,12 @@ Machines within the network can only be accessed by _____.
 
 A summary of the access policies in place can be found in the table below.
 
-| Name       | Publicly Accessible | Allowed IP Addresses                                   |
-|------------|---------------------|--------------------------------------------------------|
-| Jump Box   | Yes                 | Admin_Host_Pub_IP:5601, 10.0.0.6, 10.0.0.7, 10.1.0.4   |
-| Web*1      | No                  | 10.0.0.4:22                                            |
-| Web*2      | No                  | 10.0.0.4:22                                            |
-| Elk*Server | No                  | Admin_Host_Pub_IP:5601, 10.0.0.4:22                    |
+| Name       | Publicly Accessible | Allowed IP Addresses                                        |
+|------------|---------------------|-------------------------------------------------------------|
+| Jump Box   | Yes                 | Admin_Host_Pub_IP:22, 10.0.0.6:22, 10.0.0.7:22, 10.1.0.4:22 |
+| Web-1      | No                  | 10.0.0.4:22                                                 |
+| Web-2      | No                  | 10.0.0.4:22                                                 |
+| Elk-Server | No                  | Admin_Host_Pub_IP:5601, 10.0.0.4:22                         |
 
 ### Elk Configuration
 
@@ -92,21 +92,18 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
-![Elk Docker Running](Images/elk_install.png)
+![Elk Docker Running](https://github.com/jb-williams/ansible/blob/Images/elk-install.png)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-* _TODO: List the IP addresses of the machines you are monitoring_
 * 10.0.0.6
 * 10.0.0.7
 
 We have installed the following Beats on these machines:
-* _TODO: Specify which Beats you successfully installed_
 * Filebeat:
-    * Installed on both Web*1 and Web-2
+    * Installed on both Web-1 and Web-2
 * Metricbeat 
-    * Installed on both Web*1 and Web-2
+    * Installed on both Web-1 and Web-2
 
 These Beats allow us to collect the following information from each machine:
 * _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
