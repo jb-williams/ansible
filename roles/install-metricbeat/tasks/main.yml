@@ -18,21 +18,21 @@
       dest: /etc/metricbeat/metricbeat.yml
 
     # Use command module
-  - name: enable and configure docker module for metric beat
-    command: metric modules enable system
+   - name: enable and configure docker module for metric beat
+     command: metric modules enable system
+ 
+     # Use command module
+   - name: setup metricbeat
+     command: metricbeat setup
 
-    # Use command module
-  - name: setup metricbeat
-    command: metricbeat setup
-
-    # Use command module
-  - name: start metricbeat
-    command: service metricbeat start
-
-    # Use systemd module
-  - name: enable service metricbeat on boot
-    systemd:
-      name: metricbeat
-      enabled: yes
-
+     # Use command module
+   - name: start metricbeat
+     command: service metricbeat start
+ 
+     # Use systemd module
+   - name: enable service metricbeat on boot
+     systemd:
+       name: metricbeat
+       enabled: yes
+ 
 
