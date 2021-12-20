@@ -1,0 +1,23 @@
+- hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+  - name: move fav-wallpaper file
+    copy:
+      src: files/fav-wallpaper.jpg
+      dest: /usr/share/images/desktop-base/fav-wallpaper.jpg
+      owner: root
+      group: root
+
+#  - name: set wallpaper
+#    become_user: binford
+#    dconf:
+#      key: "path/to/xfce/background/pic-uri"
+#      value: "'file:///usr/share/images/desktop-base/fav-wallpaper.jpg'"
+#
+#  - name: set wallpaper pos
+#    become_user: binford
+#    dconf:
+#      key: "/path/to/xfce/background/pic-options"
+#      value: "'zoom'"

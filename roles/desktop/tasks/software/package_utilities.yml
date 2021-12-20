@@ -1,0 +1,20 @@
+- name: system setup | utilities | install utility packages
+  tages: packages,system,settings
+  package:
+    state: latest
+    name:
+      - hydra
+      - john
+      - mesa-vulkan-drivers
+      - libglx-mesa0:i386
+      - mesa-vulkan-drivers:i386
+      - libgl1-mesa-dri:i386
+      - libpam-tmpdir
+      - libfreetype6-dev
+      - libfontconfig1-dev
+      - libxcb-xfixes0-dev
+      - libxkbcommon-dev
+      - libx11-dev
+      - libxft-dev
+      - libxinerama-dev 
+      - remmina

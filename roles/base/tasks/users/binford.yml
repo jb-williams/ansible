@@ -1,0 +1,91 @@
+- name: users | binford | create group
+  tags: groups,binford,users
+  group:
+    name: binford
+    state: present
+
+- name: users | binford | create user |
+  tags: binford,sudo,users
+  user:
+    name: binford
+    group: binford
+    groups: adm,ansible,{{ sudo_group }}
+    state: present
+    comment: "Binford"
+    password: "{{ binford_passwd }}"
+    shell: /bin/bash
+
+- name : users | binford | binford | add sudoers file
+  tags: binford,settings,xfafnir,sudo,system,users
+  copy:
+    src: users/sudoers_binford
+    dest: /etc/sudoers.d/binford
+    owner: root
+    group: root
+    mode: 0440
+
+- name: users | binford | create .ssh directory
+  tags: dotfiles,binford,ssh,users
+  file:
+    path: "{{ item.dir }}"
+    state: directory
+    owner: binford
+    group: binford
+    mode: 0700
+  with_items:
+    - { dir: '/home/binford/.ssh' }
+
+- name: users | binford | add public key
+  tags: dotfiles,binford,ssh,ssh-keys,users
+  authorized_key:
+    user: binford
+    key: "{{ item }}"
+  with_file:
+    - users/binford/ssh/binford_ed25519.pub
+
+- name: users | binford | create config directories
+  tags: dotfiles,jay,tmux,user,vim,ssh
+  file:
+    path: /home/binford/{{ item.dir }}
+    state: directory
+    owner: binford
+    group: binford
+    mode: 0700
+  with_items:
+    - { dir: '.config' }
+    - { dir: '.config/htop' }
+    - { dir: 'scripts' }
+    - { dir: '.vim' }
+    - { dir: '.vim/autoload' }
+    - { dir: '.vim/bundle' }
+    - { dir: '.vim/ftplugin' }
+    - { dir: '.vim/undodir' }
+
+- name: users | binford | copy tmux config
+  tags: dotfiles,users,binford,tmux,users,vim
+  copy:
+    src: users/binford/tmux/tmux.conf
+    dest: /home/binford/.tmux.conf
+    owner: binford
+    group: binford
+    mode: 0600
+
+- name: users | binford | copy dotfiles
+  tags: dotfiles,users,binford,tmux,users,vim
+  copy:
+    src: users/binford/{{ item.src }}
+    dest: /home/binford/{{ item.dest }}
+    owner: binford
+    group: binford
+    mode: 0600
+  with_items:
+    - { src: 'ackrc', dest: '.ackrc' }
+    - { src: 'curlrc', dest: '.curlrc' }
+    - { src: 'inputrc', dest: '.inputrc' }
+    - { src: 'bash/bashrc', dest: '.bashrc' }
+    - { src: 'bash/bash_aliases', dest: '.bash_aliases' }
+    - { src: 'git/gitconfig', dest: '.gitconfig' }
+    - { src: 'git/gitignore', dest: '.gitignore' }
+    - { src: 'scripts/just_vim_setup.sh'_, dest: 'scripts/just_vim_setup.sh' }
+    - { src: 'vim/vimrc', dest: '.vimrc' }
+

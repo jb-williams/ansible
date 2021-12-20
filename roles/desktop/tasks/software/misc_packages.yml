@@ -1,0 +1,28 @@
+- name: software | install workstation distribution packages
+  tags: packages,workstation-packages
+  package:
+    name:
+      - alsa-utils
+      - "{{ cups_package }}"
+      - "{{ cryptsetup_package }}"
+      - dconf-editor
+      - dialog
+      - exfat-utils
+      - "{{ font_hack_ttf_package }}"
+      - gparted
+      - "{{ libnotify_package }}"
+      - "{{ network_manager_openvpn_package }}"
+      - "{{ network_manager_package }}"
+      - "{{ wireless_tools_package }}"
+      - "{{ wpa_supplicant_package }}"
+
+
+- name: software | remove unneeded workstation packages on debian and ubuntu hosts
+  tags: cleanup,packages,workstation-packages
+  package:
+    state: absent
+    name:
+      - firefox*
+      - thunderbird*
+  when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
+

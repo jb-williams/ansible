@@ -1,0 +1,64 @@
+---
+- hosts: all
+  tags: always
+  become: true
+  pre_tasks:
+    - name: pre-run | update package cache (archlinux)
+      tags: always
+      pacman: update_cache=yes
+      changed_when: False
+      when: ansible_distribution == "Archlinux"
+
+    - name: pre-run | update package cache (debian based)
+      tags: always
+      apt: update_cache=yes
+      changed_when: False
+      when: ansible_distribution in ["Debian", "Ubuntu"]
+
+- hosts: all
+  tags: base
+  become: true
+  roles:
+    - base
+
+- hosts: desktop
+  tags: desktop
+  become: true
+  roles:
+    - desktop
+
+- hosts: server
+  tags: server
+  become: true
+  roles:
+    - server
+
+- hosts: all
+  become: true
+  tasks:
+  - name: cleanup package cache
+    tags: always
+    apt:
+      autoclean: yes
+    changed_when: false
+    when: ansible_distribution in ["Debian", "Ubuntu"]
+
+  - name: autoremove orphans packages
+    tags: always
+    apt:
+      autoremove: yes
+      purge: yes
+    when: ansible_distribution in ["Debian", "Ubuntu"]
+
+#  - name: notify of completion
+#    include_tasks: playbooks/notify_completion_alert.yml
+#    tags: always
+#    when:
+#      - task_failed is not defined
+#
+#  - name: notify of failure
+#    include_tasks: playbooks/send_failure_alert.yml
+#    tags: always
+#    when:
+#      - task_failed is defined
+#      - task_failed == true

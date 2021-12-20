@@ -1,0 +1,12 @@
+cryptsetup_package: cryptsetup-bin
+cups_package: cups-daemon
+font_hack_ttf_package: fonts-hack-ttf
+gdm_package: gdm3
+binford_user_group: binford
+libnotify_package: libnotify-bin
+network_manager_openvpn_package: network-manager-openvpn
+network_manager_package: network-manager
+steam_package: steam-installer
+wireless_tools_package: wireless-tools
+wpa_supplicant_package: wpasupplicant
+

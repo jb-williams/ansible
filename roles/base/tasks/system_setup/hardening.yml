@@ -1,0 +1,8 @@
+- name: hardening ssh 
+  tags: always
+  tasks:
+    - name: backup jail conf
+      shell: cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+    - name: hardening umask
+      shell: sed -i 's/022/027/g' /etc/login.defs

@@ -1,0 +1,43 @@
+- name: system setup | utilities | install utility packages
+  tags: packages,system,settings
+  package:
+    state: latest
+    name:
+      - base-devel
+      - dialog
+      - ed
+      - curl
+      - htop
+      - tmux
+      - vim
+      - vifm
+      - wget
+      - xclip
+      - python3
+      - python3-pip
+      - fping
+      - iptables
+      - iptables-persistent
+      - net-tools
+      - nmap
+      - traceroute
+      - apt-listbugs
+      - auditd
+      - debsums
+      - debsecan
+      - chkrootkit
+      - clamav
+      - fail2ban
+      - logrotate
+      - lynis
+      - needrestart
+      - pkg-config
+
+- name: system setup | utilities | install man-pages (arch)
+  tags: packages,system,setttings
+  pacman:
+    state: latest
+    name:
+      - man-db
+      - man-pages
+  when: ansible_distribution == "Archlinux"

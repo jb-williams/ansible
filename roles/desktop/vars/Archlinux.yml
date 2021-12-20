@@ -1,0 +1,11 @@
+cryptsetup_package: cryptsetup
+cups_package: cups
+font_hack_ttf_package: ttf-hack
+gdm_package: gdm
+binford_user_group: users
+libnotify_package: libnotify
+network_manager_openvpn_package: networkmanager-openvpn
+network_manager_package: networkmanager
+wireless_tools_package: wireless_tools
+wpa_supplicant_package: wpa_supplicant
+

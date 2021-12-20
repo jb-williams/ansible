@@ -1,0 +1,16 @@
+---
+- name: apt_update
+  apt: update_cache=yes
+
+- name: restart_sshd
+  service:
+    name: "{{ openssh_service }}"
+    state: restarted
+    
+- name: update_vim_bundle_perms
+  file:
+    path: /home/binford/.vim/bundle
+    owner: binford
+    group: binford
+    recurse: true
+

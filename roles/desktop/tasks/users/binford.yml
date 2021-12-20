@@ -1,0 +1,22 @@
+- name: users | binford | remove preinstalled clutter from home directory
+  file:
+    path: /home/binford/{{ item }}
+    state: absent
+  with_items:
+    - examples.desktop
+
+- name: users | binford | create personal config directories
+  tags: dotfiles,dotfiles-binford
+  file:
+    path: /home/binford/{{ item.dir }}
+    state: directory
+    owner: binford
+    group: binford
+    mode: 0700
+  with_items:
+    - { dir: .config }
+    - { dir: .config/autostart }
+    - { dir: .local }
+    - { dir: .local/share }
+    - { dir: .local/share/applications }
+    - { dir: bin }

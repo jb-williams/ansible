@@ -1,0 +1,16 @@
+- name: users | xfafnir | add public key
+  tags: dotfiles,xfafnir,ssh,ssh-keys,users
+  autorized_key:
+    user: xfafnir
+    key: "{{ item }}"
+  with_file:
+    - users/xfafnir/ssh/xfafnir_id_ed**.pub
+
+- name : users | xfafnir | add sudoers file
+  tags: settings,xfafnir,sudo,system,users
+  copy:
+    src: users/sudoers_xfafnir
+    dest: /etc/sudoers.d/xfafnir
+    owner: root
+    owner: root
+    mode: 0440

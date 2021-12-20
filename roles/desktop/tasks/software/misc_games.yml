@@ -1,0 +1,9 @@
+- name: software | install misc game packages
+  tags: gaming
+  package:
+    name:
+      - openarena
+      - moria
+      - flare-game
+  when: games is defined and games == true
+

@@ -1,0 +1,225 @@
+" Vundle
+filetype off
+
+let g:vundle_default_git_proto = 'git'
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+" Plugs
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+Plugin 'sjl/gundo.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'scrooloose/nerdtree'
+Plugin 'rust-lang/rust.vim'
+Plugin 'fatih/vim-go'
+Plugin 'vimwiki/vimwiki'
+Plugin 'vifm/vifm.vim'
+Plugin 'dracula/vim'
+Plugin 'mbbill/undotree'
+Plugin 'ap/vim-css-color'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
+
+call vundle#end()
+
+" Required for vundle
+"filetype plugin indent on 
+filetype plugin on 
+
+" Highlighting
+syntax on
+
+set encoding=utf-8
+set path+=**
+
+" color column and scheme
+set colorcolumn=90
+colorscheme dracula
+" Airline confg
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='powerlineish'
+
+" Goyo and Limelight
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" History
+set history=50
+set t_Co=256
+set smartindent
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
+set cursorline
+"set lazyredraw
+
+" Visual prompt for command completion
+set wildmenu
+
+" folding
+set nofoldenable
+
+set noesckeys
+
+set nocompatible
+
+" Display
+set ls=2
+set showmode
+set showcmd
+set modeline
+set ruler
+set title
+set nu
+
+" Line wrapping
+set wrap
+" set nowrap
+set linebreak
+set showbreak=▹
+
+" Auto indent what you can
+set autoindent
+
+" Searching
+set incsearch
+set ignorecase
+set smartcase
+set gdefault
+set hlsearch
+set showmatch
+
+" Enable jumping into files in a search buffer
+set hidden 
+
+" Make backspace a bit nicer
+set backspace=eol,start,indent
+
+" Indentation
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set shiftround
+set expandtab
+
+" Disable mouse=     enalbe set mouse=a
+set mouse=a
+
+" Colorscheme
+if executable('rg')
+	let g:rg_derive_root='true'
+endif
+
+let g:netrw_browse_split= 2
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+
+" Vimwiki // add Vim-Instant-Markdown
+" to use MD syntax for vimwiki
+let g:vimwiki_list = [{'path':'~/.vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+let g:vimwiki_markdown_link_ext = 1
+let g:mardown_folding = 0
+" dont use conceal feature
+let g:vim_markdown_conceal = 0
+" dont use math tex conceal
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+" support front matter for diff formats
+let g:vim_markdown_frontmatter = 1 " yaml format
+let g:vim_markdown_toml_frontmatter = 1 " toml format
+let g:vim_markdown_json_frontmatter = 1 " json format
+
+vmap <leader>y :!xclip -f -sel clip<CR>
+map <leader>p mz:-1r !xclip -o -sel clip<CR>`z
+vnoremap <C-y> "+y :let @+=@*<CR>
+noremap <C-p> "+P
+noremap <leader>vs :e $MYVIMRC<CR>
+nnoremap <leader>; mlA;<esc>`l
+noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+noremap <leader>vv :Vifm<CR>
+
+" Switch tabs
+map 8 <Esc>:tabe 
+map 9 gT
+map 0 gt
+
+" Gundo toggle
+map <F5> <Esc>:GundoToggle<CR>
+
+" Toggle line-wrap
+map <F6> <Esc>:set wrap!<CR>
+
+" Open file under cursor in new tab
+map <F9> <Esc><C-W>gF<CR>:tabm<CR>
+
+" moving around windows and tabs
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Direction keys for wrapped lines
+noremap <silent> <expr> j (v:count == 0? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0? 'gk' : 'k')
+"nnoremap <silent> k gk
+"nnoremap <silent> j gj
+nnoremap <silent> <Up> gk
+nnoremap <silent> <Down> gj
+inoremap <silent> <Up> <Esc>gka
+inoremap <silent> <Down> <Esc>gja
+
+" Bash / emacs keys for command line
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+" Base64 decode word under cursor
+nmap <Leader>b :!echo <C-R><C-W> \| base64 -d<CR>
+
+" grep recursively for word under cursor
+nmap <Leader>g :tabnew\|read !grep -Hnr '<C-R><C-W>'<CR>
+
+" sort the buffer removing duplicates
+nmap <Leader>s :%!sort -u --version-sort<CR>
+
+
+" Write current file with sudo perms
+command! W w !sudo tee % > /dev/null
+"command! W w
+command! -bang Qall qall
+
+
+" Open word under cursor as ctag in new tab
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
+if $VIMENV == 'talk'
+  set background=light
+  let g:solarized_termcolors=256
+  colo solarized
+  noremap <Space> :n<CR>
+  noremap <Backspace> :N<CR>
+else
+  " Trans background
+  hi Normal ctermbg=none
+  hi NonText ctermbg=none
+endif
+
+if $VIMENV == 'prev'
+  noremap <Space> :n<CR>
+  noremap <Backspace> :N<CR>
+  noremap <C-D> :call delete(expand('%')) <bar> argdelete % <bar> bdelete<CR>
+  set noswapfile
+endif
+
+
+" set the interactive flag so bash functions are sourced from ~/.bashrc etc
+"set shellcmdflag=-ci
