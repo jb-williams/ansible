@@ -1,4 +1,6 @@
 ## Automated ELK Stack Deployment
+### By Jb Williams
+December 19, 2021
 
 The files in this repository were used to configure the network depicted below.
 
