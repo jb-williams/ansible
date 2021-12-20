@@ -11,13 +11,13 @@
 
 # List the IP Addresses of your webservers
 # You should have at least 2 IP addresses
-[webservers]
+[desktop]
 #TODO 
 #0.0.0.0 ansible_python_interpreter=/usr/bin/python3
 
 # List the IP address of your ELK server
 # There should only be one IP address
-[elk]
+#[server]
 #TODO
 #0.0.0.0 ansible_python_interpreter=/usr/bin/python3
 
