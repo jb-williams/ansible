@@ -1,6 +1,6 @@
 # ansible_machines
 **Older and not kept updated**
-* Mostly used to test and figure out what I can do
+* Mostly used to test and figure out what I can do.  
 My Setup for machines from Base/Server/Desktop
 
 ## Setup
